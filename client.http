@@ -1,0 +1,4 @@
+GET https://static.openfoodfacts.org/data/
+
+
+GET https://pokeapi.co/api/v2/pokemon/ditto
