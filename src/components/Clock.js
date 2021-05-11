@@ -1,23 +1,37 @@
 import { useEffect, useState } from 'react'
 
-export function StartClock(localtime) {
+export function StartClock({ localtime }) {
 
-  const times = String(localtime).split(':')
+  const times = localtime.split(':')
   const [hours, minutes] = times
+
+  console.log()
 
   // const [time, setTime] = useState({
   //   seconds: 1,
   //   minutes: minutes,
   //   hours: hours,
   // })
-  const [ second, setSecond ] = useState(0)
-  const [ minute, setMinute ] = useState(minutes)
-  const [ hour, setHour] = useState(hours)
+  const [ second, setSecond ] = useState(new Date().getSeconds())
+  const [ minute, setMinute ] = useState(Number(minutes))
+  const [ hour, setHour] = useState(Number(hours))
 
   const secondIncrement = () => {
-    second < 60 ? setSecond(second + 1) : second = 0 && setTime(minute + 1)
-    minute < 60 ? setTime(minute + 1) : minute = 0 && setTime(hours + 1)
-    if (hours === 24) setTime(hours === 0)
+    if (second < 59) {
+      setSecond(second + 1)
+    } else {
+      setSecond(0) 
+      if (minute < 59) {
+        setMinute(Number(minute + 1))
+      } else {
+        setMinute(0)
+        if (hour < 23) {
+          setHour(Number(hour + 1))
+        } else {
+          setHour(0)
+        }
+      }
+    }
   }
 
   useEffect(() => {
@@ -28,7 +42,7 @@ export function StartClock(localtime) {
 
   return (
     <h4 className="title is-4">
-      Local Time: {`${time.hours}:${time.minutes}`}
+      Local Time: {`${('0' + hour).slice(-2)}:${('0' + minute).slice(-2)}:${('0' + second).slice(-2)}`}
     </h4>
   )
 }

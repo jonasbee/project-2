@@ -1,4 +1,4 @@
-function ForecastCard({ date, condition, maxTemp, minTemp }) {
+function ForecastCard({ date, condition, maxTemp, minTemp, tempUnit }) {
   return (
     <div  className="column is-third">
       <h5 className="title is-5">
@@ -10,8 +10,8 @@ function ForecastCard({ date, condition, maxTemp, minTemp }) {
           <img src={condition.icon} alt="icon" />
         </div>
         <div className="column is-half">
-          <p>Max: {maxTemp}°C</p>
-          <p>Min: {minTemp}°C</p>
+          <p>Max: {maxTemp}°{tempUnit.toUpperCase()}</p>
+          <p>Min: {minTemp}°{tempUnit.toUpperCase()}</p>
         </div>
       </div>
     </div>

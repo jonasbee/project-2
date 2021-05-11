@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { getWeatherAtCity, get3DayForecastAtCity } from '../lib/api.js'
+import { get3DayForecastAtCity } from '../lib/api.js'
 import { StartClock } from './Clock.js'
 import ForecastCard from './ForecastCard.js'
 
@@ -11,12 +11,18 @@ function WeatherShow() {
   const [forecast, setForecast] = useState(null)
   const [isError, setIsError] = useState(false)
 
-  // let units = localStorage.getItem('units')
-  // localStorage.getItem('units') ? units = JSON.parse(units) : {
-  //   system: 'Metric',
-  //   temp: 'c',
-  //   wind: 'kph',
-  // }
+  const [selectedUnits, setSelectedUnits] = useState(0)
+
+  const units = [{
+    system: 'Metric',
+    temp: 'c',
+    wind: 'kph',
+  }, {
+    system: 'Imperial',
+    temp: 'f',
+    wind: 'mph',
+  }]
+
   const { name } = useParams()
   // console.log(units)
   useEffect(() => {
@@ -34,6 +40,11 @@ function WeatherShow() {
     getData()
   }, [name])
 
+  const changeUnits = () => {
+    setSelectedUnits(selectedUnits ? 0 : 1)
+    console.log(units[selectedUnits].system)
+  }
+
   return (
     <section className="section">
       <div className="container">
@@ -44,7 +55,7 @@ function WeatherShow() {
                 <h1 className="title is-1">{location.name}</h1>
               </div>
               <div className="column is-one-third">
-                {/* <button className="button is-warning">{units.system}</button> */}
+                <button className="button is-warning" onClick={changeUnits}>Change to {units[selectedUnits ? 0 : 1].system}</button>
               </div>
             </div>
             <hr />
@@ -55,17 +66,14 @@ function WeatherShow() {
                 <h4 className="title is-4">Region: {location.region}</h4>
                 <hr />
                 <StartClock localtime={location.localtime.split(' ')[1]}/>
-                {/* <h4 className="title is-4">Local Time: {location.localtime.split(' ')[1]}</h4> */}
               </div>
               <div className="column is-third">
                 <h4 className="title is-4">{currentWeather.condition.text}</h4>
                 <hr />
-                <h4 className="title is-4">{currentWeather.temp_c}°C</h4>
+                <h4 className="title is-4">{currentWeather[`temp_${units[selectedUnits].temp}`]}°{units[selectedUnits].temp.toUpperCase()}</h4>
                 <hr />
-                {/* <h4 className="title is-4">Wind: {
-                  units.wind === 'kph' ? currentWeather.wind_kph : currentWeather.wind_mph
-                }{units.wind} {currentWeather.wind_dir}
-                </h4> */}
+                <h4 className="title is-4">Wind: {currentWeather[`wind_${units[selectedUnits].wind}`]} {units[selectedUnits].wind} {currentWeather.wind_dir}
+                </h4>
                 <hr />
               </div>
               <div className="column is-third">
@@ -87,9 +95,10 @@ function WeatherShow() {
                 <ForecastCard
                   key={day.date}
                   date={day.date}
-                  maxTemp={day.day.maxtemp_c}
-                  minTemp={day.day.mintemp_c}
+                  maxTemp={day.day[`maxtemp_${units[selectedUnits].temp}`]}
+                  minTemp={day.day[`maxtemp_${units[selectedUnits].temp}`]}
                   condition={day.day.condition}
+                  tempUnit={units[selectedUnits].temp}
                 />
               ))}
             </div>
