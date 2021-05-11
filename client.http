@@ -1,4 +1,1 @@
-GET https://static.openfoodfacts.org/data/
-
-
-GET https://pokeapi.co/api/v2/pokemon/ditto
+GET http://api.weatherapi.com/v1/current.json?key=d96f32e682c84cc8be7120926211005&q=London&aqi=no
