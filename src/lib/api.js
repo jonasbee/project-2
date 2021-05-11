@@ -9,3 +9,7 @@ export function getWeatherAtLngLat([ lng, lat ]) {
 export function getWeatherAtCity(city) {
   return axios.get(`${baseUrl}/current.json?key=${weatherApiKey}&q=${city}&aqi=no`)
 }
+
+export function get3DayForecastAtCity(city) {
+  return axios.get(`${baseUrl}/forecast.json?key=${weatherApiKey}&q=${city}&days=3&aqi=no`)
+}

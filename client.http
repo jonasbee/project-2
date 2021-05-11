@@ -1,1 +1,1 @@
-GET http://api.weatherapi.com/v1/current.json?key=d96f32e682c84cc8be7120926211005&q=London&aqi=no
+GET http://api.weatherapi.com/v1/forecast.json?key=d96f32e682c84cc8be7120926211005&q=London&days=3&aqi=no

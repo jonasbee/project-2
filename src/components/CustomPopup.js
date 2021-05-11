@@ -24,19 +24,3 @@ function CustomPopup({ latitude, longitude, altitude, weather, setPopup }) {
 }
 
 export default CustomPopup
-
-
-// import React from 'react'
-
-// const CustomPopup = ({ feature }) => {
-//   const { id, name, description } = feature.properties
-
-//   return (
-//     <div id={`popup-${id}`}>
-//       <h3>{name}</h3>
-//       {description}
-//     </div>
-//   )
-// }
-
-// export default CustomPopup

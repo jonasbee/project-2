@@ -36,7 +36,6 @@ function Map() {
   }
 
   return (
-    
     <div className="map-container">
       <ReactMapGl
         mapboxApiAccessToken={mapBoxAccessToken}
@@ -46,6 +45,7 @@ function Map() {
         onViewportChange={(viewport => setViewport(viewport))}
         onClick={handleClick}
         {...viewport}
+        className="is-fullheight-with-navbar"
       >
         {showPopup &&
           <CustomPopup 
@@ -62,78 +62,3 @@ function Map() {
 }
 
 export default Map
-
-
-// import mapboxgl from '!mapbox-gl'
-// const mapContainer = useRef(null)
-// const map = useRef(null)
-// const [lng, setLng] = useState(0)
-// const [lat, setLat] = useState(0)
-// const [zoom, setZoom] = useState(1)
-
-// if (!weatherAtClick) {
-//   return
-// } else {
-//   ReactDOM.render(<WeatherCard
-//     name={weatherAtClick.location.name}
-//     tempC={weatherAtClick.current.temp_c}
-//     icon={weatherAtClick.current.condition.icon}
-//   />, 
-//   popup.current
-//     .setLngLat(e.lngLat)
-//     .setDOMContent(popupRef.current)
-//     .addTo(map)
-//   )
-// }
-
-
-//console.log('render')
-
-// useEffect(() => {
-//   if (map.current) return // initialize map only once
-//   map.current = new mapboxgl.Map({
-//     container: mapContainer.current,
-//     style: 'mapbox://styles/mapbox/streets-v11',
-//     center: [lng, lat],
-//     zoom: zoom,
-//   })
-// })
-
-// useEffect(() => {
-//   if (!map.current) return // wait for map to initialize
-//   map.current.on('move', () => {
-//     setLng(map.current.getCenter().lng.toFixed(4))
-//     setLat(map.current.getCenter().lat.toFixed(4))
-//     setZoom(map.current.getZoom().toFixed(2))
-//   })
-// })
-
-// useEffect(() => {
-//   if (!map.current) { // initialize map only once
-//     map.current = new mapboxgl.Map({
-//       container: mapContainer.current,
-//       style: 'mapbox://styles/mapbox/streets-v11',
-//       center: [lng, lat],
-//       zoom: zoom,
-//     })
-//     map.current.on('click', handleClick)
-//   }
-// })
-
-// useEffect(() => {
-//   map.current.on('move', () => {
-//     setLng(map.current.getCenter().lng.toFixed(4))
-//     setLat(map.current.getCenter().lat.toFixed(4))
-//     setZoom(map.current.getZoom().toFixed(2))
-
-//     map.current.off('click', handleClick)
-//     map.current.on('click', handleClick)
-//   })
-
-//   // return () => map.current.remove()
-// })
-
-  // const popup = new mapboxgl.Popup({ closeOnClick: true, closeButton: false })
-//   .setLngLat(lngLat)
-//   .setHTML(`<h1>${data.location.name}</h1><h3>${data.current.temp_c}°C</h3><img src="${data.current.condition.icon}">`)
-//   .addTo(map.current)

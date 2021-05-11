@@ -7,11 +7,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Nav />
-      <Switch>
-        <Route exact path="/" component={Map}/>
-        <Route path="/weather/:name" component={WeatherShow}/>
-      </Switch>
+      <div className="main-container">
+        <Nav />
+        <Switch>
+          <Route exact path="/" component={Map}/>
+          <Route path="/weather/:name" component={WeatherShow}/>
+        </Switch>
+      </div>
     </BrowserRouter>
   )
 }

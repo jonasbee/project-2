@@ -1,35 +1,52 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getWeatherAtCity } from '../lib/api.js'
+
+import { getWeatherAtCity, get3DayForecastAtCity } from '../lib/api.js'
+import { StartClock } from './Clock.js'
+import ForecastCard from './ForecastCard.js'
 
 function WeatherShow() {
-  const [weather, setWeather] = useState(null)
+  const [currentWeather, setCurrentWeather] = useState(null)
   const [location, setLocation] = useState(null)
+  const [forecast, setForecast] = useState(null)
   const [isError, setIsError] = useState(false)
-  const { name } = useParams()
-  console.log(name)
 
+  // let units = localStorage.getItem('units')
+  // localStorage.getItem('units') ? units = JSON.parse(units) : {
+  //   system: 'Metric',
+  //   temp: 'c',
+  //   wind: 'kph',
+  // }
+  const { name } = useParams()
+  // console.log(units)
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await getWeatherAtCity(name)
-        setWeather(data.current)
+        const { data } = await get3DayForecastAtCity(name)
+        setForecast(data.forecast)
+        setCurrentWeather(data.current)
         setLocation(data.location)
-        console.log(data)
       } catch (err) {
         setIsError(true)
         console.log(err)
       }
     }
     getData()
-  }, [])
+  }, [name])
 
   return (
-    <div className="weather-show"> 
+    <section className="section">
       <div className="container">
-        {(location && weather) && 
+        {(location && currentWeather) &&
           <>
-            <h1 className="title is-1 centered">{location.name}</h1>
+            <div className="columns">
+              <div className="column is-two-thirds">
+                <h1 className="title is-1">{location.name}</h1>
+              </div>
+              <div className="column is-one-third">
+                {/* <button className="button is-warning">{units.system}</button> */}
+              </div>
+            </div>
             <hr />
             <div className="columns">
               <div className="column is-third">
@@ -37,28 +54,51 @@ function WeatherShow() {
                 <hr />
                 <h4 className="title is-4">Region: {location.region}</h4>
                 <hr />
-                <h4 className="title is-4">Local Time: {location.localtime.split(' ')[1]}</h4>
+                <StartClock localtime={location.localtime.split(' ')[1]}/>
+                {/* <h4 className="title is-4">Local Time: {location.localtime.split(' ')[1]}</h4> */}
               </div>
               <div className="column is-third">
-                <h4 className="title is-4">{weather.condition.text}</h4>
+                <h4 className="title is-4">{currentWeather.condition.text}</h4>
                 <hr />
-                <h4 className="title is-4">{weather.temp_c}°C</h4>
+                <h4 className="title is-4">{currentWeather.temp_c}°C</h4>
                 <hr />
-                <h4 className="title is-4">Wind: {weather.wind_kph}kph {weather.wind_dir}</h4>
+                {/* <h4 className="title is-4">Wind: {
+                  units.wind === 'kph' ? currentWeather.wind_kph : currentWeather.wind_mph
+                }{units.wind} {currentWeather.wind_dir}
+                </h4> */}
                 <hr />
               </div>
               <div className="column is-third">
-                <h4 className="title is-4">UV: {weather.uv}</h4>
+                <h4 className="title is-4">UV: {currentWeather.uv}</h4>
                 <hr />
-                <h4 className="title is-4">Humidity: {weather.humidity}%</h4>
+                <h4 className="title is-4">Humidity: {currentWeather.humidity}%</h4>
                 <hr />
-                <img src={weather.condition.icon} />
+                <img src={currentWeather.condition.icon} />
               </div>
             </div>
           </>
         }
+        {forecast ?
+          <>
+            <h2 className="title is-2">3 Day Forecast</h2>
+            <hr />
+            <div className="columns">
+              {forecast.forecastday.map(day => (
+                <ForecastCard
+                  key={day.date}
+                  date={day.date}
+                  maxTemp={day.day.maxtemp_c}
+                  minTemp={day.day.mintemp_c}
+                  condition={day.day.condition}
+                />
+              ))}
+            </div>
+          </>
+          :
+          <h2>Loading Forecast...</h2>
+        }
       </div>
-    </div>
+    </section>
   )
 }
 
