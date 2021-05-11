@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-// import ReactDOM from 'react-dom'
 import CustomPopup from './CustomPopup'
 import ReactMapGl from 'react-map-gl'
 import { getWeatherAtLngLat } from '../lib/api'
@@ -37,6 +36,7 @@ function Map() {
   }
 
   return (
+    
     <div className="map-container">
       <ReactMapGl
         mapboxApiAccessToken={mapBoxAccessToken}

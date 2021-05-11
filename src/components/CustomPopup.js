@@ -1,22 +1,16 @@
 import { Popup } from 'react-map-gl'
 import WeatherCard from './WeatherCard'
-import { Link } from 'react-router-dom'
 
 function CustomPopup({ latitude, longitude, altitude, weather, setPopup }) {
 
-  const handleClick = (e) => {
-   console.log(e)
-  }
-
   return (
-    <div onClick={handleClick}>
+    <div>
       <Popup
         latitude={latitude}
         longitude={longitude}
         altitude={altitude}
         offsetTop={-30}
         onClose={() => setPopup(false)}
-        closeOnClick={true}
         closeButton={false}
       >
         <WeatherCard

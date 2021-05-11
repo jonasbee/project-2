@@ -1,7 +1,7 @@
 import Map from './components/Map'
-import WeatherShow from './components/WeatherShow'
+import WeatherShow from './components/WeatherShow.js'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Nav from './common/Nav.js'
+import Nav from './components/common/Nav.js'
 
 function App() {
 
