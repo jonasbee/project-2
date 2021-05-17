@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import CustomPopup from './CustomPopup'
 import ReactMapGl from 'react-map-gl'
 import { getWeatherAtLngLat } from '../lib/api'
-const mapBoxAccessToken = 'pk.eyJ1Ijoiam9uYXNiZWUiLCJhIjoiY2tvaWtsMmgwMDJ6azJubndjNDAzaXRybiJ9.XUc9zeZ2A0vQs0CNJ8n1ig'
+const mapBoxAccessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
 
 function Map() {
   const [viewport, setViewport] = useState({
