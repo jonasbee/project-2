@@ -1,6 +1,6 @@
 import axios from 'axios'
-const weatherApiKey = 'd96f32e682c84cc8be7120926211005'
-const baseUrl = 'http://api.weatherapi.com/v1'
+const weatherApiKey = process.env.REACT_APP_WEATHER_API_KEY
+const baseUrl = 'https://api.weatherapi.com/v1'
 
 export function getWeatherAtLngLat([ lng, lat ]) {
   return axios.get(`${baseUrl}/current.json?key=${weatherApiKey}&q=${lat},${lng}&aqi=no`)
