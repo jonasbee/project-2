@@ -47,66 +47,70 @@ function WeatherShow() {
 
   return (
     <section className="section">
-      <div className="container">
-        {(location && currentWeather) &&
-          <>
-            <div className="columns">
-              <div className="column is-two-thirds">
-                <h1 className="title is-1">{location.name}</h1>
+      {isError ?
+        <h1 className="title is-1">Oops, we failed to find the forecast here :(</h1>
+        :
+        <div className="container">
+          {(location && currentWeather) &&
+            <>
+              <div className="columns">
+                <div className="column is-two-thirds">
+                  <h1 className="title is-1">{location.name}</h1>
+                </div>
+                <div className="column is-one-third">
+                  <button className="button is-warning" onClick={changeUnits}>Change to {units[selectedUnits ? 0 : 1].system}</button>
+                </div>
               </div>
-              <div className="column is-one-third">
-                <button className="button is-warning" onClick={changeUnits}>Change to {units[selectedUnits ? 0 : 1].system}</button>
+              <hr />
+              <div className="columns">
+                <div className="column is-third">
+                  <h4 className="title is-4">Country: {location.country}</h4>
+                  <hr />
+                  <h4 className="title is-4">Region: {location.region}</h4>
+                  <hr />
+                  <StartClock localtime={location.localtime.split(' ')[1]} />
+                </div>
+                <div className="column is-third">
+                  <h4 className="title is-4">{currentWeather.condition.text}</h4>
+                  <hr />
+                  <h4 className="title is-4">{currentWeather[`temp_${units[selectedUnits].temp}`]}°{units[selectedUnits].temp.toUpperCase()}</h4>
+                  <hr />
+                  <h4 className="title is-4">Wind: {currentWeather[`wind_${units[selectedUnits].wind}`]} {units[selectedUnits].wind} {currentWeather.wind_dir}
+                  </h4>
+                  <hr />
+                </div>
+                <div className="column is-third">
+                  <h4 className="title is-4">UV: {currentWeather.uv}</h4>
+                  <hr />
+                  <h4 className="title is-4">Humidity: {currentWeather.humidity}%</h4>
+                  <hr />
+                  <img src={currentWeather.condition.icon} />
+                </div>
               </div>
-            </div>
-            <hr />
-            <div className="columns">
-              <div className="column is-third">
-                <h4 className="title is-4">Country: {location.country}</h4>
-                <hr />
-                <h4 className="title is-4">Region: {location.region}</h4>
-                <hr />
-                <StartClock localtime={location.localtime.split(' ')[1]}/>
+            </>
+          }
+          {forecast ?
+            <>
+              <h2 className="title is-2">3 Day Forecast</h2>
+              <hr />
+              <div className="columns">
+                {forecast.forecastday.map(day => (
+                  <ForecastCard
+                    key={day.date}
+                    date={day.date}
+                    maxTemp={day.day[`maxtemp_${units[selectedUnits].temp}`]}
+                    minTemp={day.day[`mintemp_${units[selectedUnits].temp}`]}
+                    condition={day.day.condition}
+                    tempUnit={units[selectedUnits].temp}
+                  />
+                ))}
               </div>
-              <div className="column is-third">
-                <h4 className="title is-4">{currentWeather.condition.text}</h4>
-                <hr />
-                <h4 className="title is-4">{currentWeather[`temp_${units[selectedUnits].temp}`]}°{units[selectedUnits].temp.toUpperCase()}</h4>
-                <hr />
-                <h4 className="title is-4">Wind: {currentWeather[`wind_${units[selectedUnits].wind}`]} {units[selectedUnits].wind} {currentWeather.wind_dir}
-                </h4>
-                <hr />
-              </div>
-              <div className="column is-third">
-                <h4 className="title is-4">UV: {currentWeather.uv}</h4>
-                <hr />
-                <h4 className="title is-4">Humidity: {currentWeather.humidity}%</h4>
-                <hr />
-                <img src={currentWeather.condition.icon} />
-              </div>
-            </div>
-          </>
-        }
-        {forecast ?
-          <>
-            <h2 className="title is-2">3 Day Forecast</h2>
-            <hr />
-            <div className="columns">
-              {forecast.forecastday.map(day => (
-                <ForecastCard
-                  key={day.date}
-                  date={day.date}
-                  maxTemp={day.day[`maxtemp_${units[selectedUnits].temp}`]}
-                  minTemp={day.day[`maxtemp_${units[selectedUnits].temp}`]}
-                  condition={day.day.condition}
-                  tempUnit={units[selectedUnits].temp}
-                />
-              ))}
-            </div>
-          </>
-          :
-          <h2>Loading Forecast...</h2>
-        }
-      </div>
+            </>
+            :
+            <h2>Loading Forecast...</h2>
+          }
+        </div>
+      }
     </section>
   )
 }

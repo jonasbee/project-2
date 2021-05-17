@@ -13,7 +13,6 @@ function Map() {
     bearing: 0,
     pitch: 0,
   })
-  const [isError, setError] = useState(false)
   const [weatherAtClick, setWeatherAtClick] = useState(null)
   const [showPopup, setPopup] = useState(false)
 
@@ -24,15 +23,13 @@ function Map() {
       console.log('data', data)
       setPopup(true)
     } catch (error) {
-      setError(true)
-      console.log('There is no')
+      console.log(error)
     }
   }
 
   const handleClick = (e) => {
     console.log(e)
     getWeather(e.lngLat)
-
   }
 
   return (
@@ -48,7 +45,7 @@ function Map() {
         className="is-fullheight-with-navbar"
       >
         {showPopup &&
-          <CustomPopup 
+          <CustomPopup
             latitude={weatherAtClick.location.lat}
             longitude={weatherAtClick.location.lon}
             altitude={viewport.altitude}
