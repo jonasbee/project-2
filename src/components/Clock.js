@@ -5,13 +5,6 @@ export function StartClock({ localtime }) {
   const times = localtime.split(':')
   const [hours, minutes] = times
 
-  console.log()
-
-  // const [time, setTime] = useState({
-  //   seconds: 1,
-  //   minutes: minutes,
-  //   hours: hours,
-  // })
   const [ second, setSecond ] = useState(new Date().getSeconds())
   const [ minute, setMinute ] = useState(Number(minutes))
   const [ hour, setHour] = useState(Number(hours))
@@ -35,7 +28,7 @@ export function StartClock({ localtime }) {
   }
 
   useEffect(() => {
-    const clock = setTimeout(() => {
+    setTimeout(() => {
       secondIncrement()
     }, 1000)
   }, [second])
@@ -46,8 +39,3 @@ export function StartClock({ localtime }) {
     </h4>
   )
 }
-
-// as soon as WeatherShow is opened
-// function to start timer should be triggered
-
-{/* <h4 className="title is-4">Local Time: {location.localtime.split(' ')[1]}</h4> */ }

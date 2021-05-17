@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { Link, useHistory, useParams } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function Nav() {
   const history = useHistory()
   const [searchValue, setSearchValue] = useState(null)
-  const [isError, setError] = useState(false)
 
   const handleChange = (e) => {
     setSearchValue(e.target.value)
@@ -15,7 +14,7 @@ function Nav() {
     const search = searchValue.split(' ').join('%20')
     history.push(`/weather/${search}`)
   }
-  console.log('params', name)
+  
   return (
     <nav className="navbar is-dark is-fullwidth">
       <div className="container">
