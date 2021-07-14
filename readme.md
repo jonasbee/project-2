@@ -36,11 +36,13 @@ Your app must:
 * Weather API
 
 ## Approach Taken
----
+
 ### Preparation
-In order to get started on the project, we first had to plan out how we would make it work. I noticed from reading the documentation that MapBox had a pop up feature and click events. The click events outputted a longitude and latitude, and that WeatherAPI has get requests using these same values. We then knew what we had to do to get it working.
 ---
+In order to get started on the project, we first had to plan out how we would make it work. I noticed from reading the documentation that MapBox had a pop up feature and click events. The click events outputted a longitude and latitude, and that WeatherAPI has get requests using these same values. We then knew what we had to do to get it working.
+
 ### MapBox, Weather Requests and Pop Ups
+---
 This was the part of the project in which we spent most of our time, and due to the time constraints, we used VSCode Live-Share combined with Git for development. As I mentioned above, MapBox has a click event which provides the longitude and latitude. Using this, we were able to create a pop up that displayed the name of the location, the temperature and an icon with the current weather at the location, using a get request to WeatherAPI, which provided this for us. We had issues with MapBox in this stage of development which I have gone into detail below.
 
 ```
@@ -73,19 +75,24 @@ return (
     </div>
   )
 ```
----
+
 ### Weather Detail Page
+---
 We wanted to have a page which would display the weather at a location in more detail, including a 3 day forecast. This was fairly simple to do by doing another get request to WeatherAPI at the specific location required. Using the CSS framework Bulma, we displayed this data on the page, with a live clock and a feature that allows the user to pick between showing the values in imperial and metric. To change the values, I created an array with two objects, one with imperial and the other with metric, then switched between them in the XML depending on which units are selected.
----
+
 ### Challenges
-Our main challenge (and time consumer) was because we initially used the vanilla JavaScript version of MapBox called MapBox-GL-JS. Using this caused the map component to re render constantly when there were pop ups, and caused multiple pop ups to appear on the page, instead of removing the old pop up when a new location was clicked. This caused the page to crash after 30 second to a minute. After switching to React-Map-GL, this problem was solved as this version of MapBox is designed specifically for React. 
 ---
+Our main challenge (and time consumer) was because we initially used the vanilla JavaScript version of MapBox called MapBox-GL-JS. Using this caused the map component to re render constantly when there were pop ups, and caused multiple pop ups to appear on the page, instead of removing the old pop up when a new location was clicked. This caused the page to crash after 30 second to a minute. After switching to React-Map-GL, this problem was solved as this version of MapBox is designed specifically for React. 
+
 ### Known Bugs
+---
 * To get to the detail page from clicking a pop up, the user must hold down their mouse on the pop up. This is because another normal click would cause another pop up to appear, instead of a click event in the pop up. This is particularly frustrating on mobile as it does not work correctly.
 * As the detail page gets from WeatherAPI from the name of the location, this can cause the detail page to show for the same city name, but in a different place. For example; if you wanted the weather in Bangor, Wales, but instead you get the weather in Bangor, Northern Ireland.
----
+
 ### Future Features
-With more time, we would have added more public APIs to the project, for example, showing the user the current Covid-19 situation in the area. 
 ---
+With more time, we would have added more public APIs to the project, for example, showing the user the current Covid-19 situation in the area. 
+
 ## Conclusion
+---
 I really enjoyed this project, working in a pair using VS Code live share was a great experience and the time constraints of the ‘Hackathon’ pushed us to work together as we solved problems and shared ideas. The project solidified my knowledge of React Hooks and deepened my understanding of the syntax and concepts that we had learned in class for the two weeks leading up to this project.
