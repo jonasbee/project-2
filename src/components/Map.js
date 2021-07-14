@@ -28,7 +28,6 @@ function Map() {
   }
 
   const handleClick = (e) => {
-    console.log(e)
     getWeather(e.lngLat)
   }
 
