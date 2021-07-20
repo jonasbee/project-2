@@ -200,6 +200,12 @@ function WeatherShow() {
 ---
 Our main challenge (and time consumer) was because we initially used the vanilla JavaScript version of MapBox called MapBox-GL-JS. Using this caused the map component to re render constantly when there were pop ups, and caused multiple pop ups to appear on the page, instead of removing the old pop up when a new location was clicked. This caused the page to crash after 30 second to a minute. After switching to React-Map-GL, this problem was solved as this version of MapBox is designed specifically for React. 
 
+### Wins
+---
+* Getting the pop ups to work correctly as it was painful and time consuming to do it
+* Displaying the 3 day forecast
+* The live clock
+
 ### Known Bugs
 ---
 * To get to the detail page from clicking a pop up, the user must hold down their mouse on the pop up. This is because another normal click would cause another pop up to appear, instead of a click event in the pop up. This is particularly frustrating on mobile as it does not work correctly.
