@@ -76,7 +76,7 @@ return (
   )
 ```
 
-![Screenshot](map_screenshot.png)
+![Screenshot](images/map_screenshot.png)
 
 ### Weather Detail Page
 ---
@@ -194,7 +194,7 @@ function WeatherShow() {
 }
 ```
 
-![Screenshot](show_screenshot.png)
+![Screenshot](images/show_screenshot.png)
 
 ### Challenges
 ---
