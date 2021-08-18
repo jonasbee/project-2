@@ -45,7 +45,7 @@ In order to get started on the project, we first had to plan out how we would ma
 ---
 This was the part of the project in which we spent most of our time, and due to the time constraints, we used VSCode Live-Share combined with Git for development. As I mentioned above, MapBox has a click event which provides the longitude and latitude. Using this, we were able to create a pop up that displayed the name of the location, the temperature and an icon with the current weather at the location, using a get request to WeatherAPI, which provided this for us. We had issues with MapBox in this stage of development which I have gone into detail below. 
 
-```
+```JavaScript
 const handleClick = (e) => {
     getWeather(e.lngLat)
   }
@@ -82,7 +82,7 @@ return (
 ---
 We wanted to have a page which would display the weather at a location in more detail, including a 3 day forecast. This was fairly simple to do by doing another get request to WeatherAPI at the specific location required. Using the CSS framework Bulma, we displayed this data on the page, with a live clock and a feature that allows the user to pick between showing the values in imperial and metric. To change the values, I created an array with two objects, one with imperial and the other with metric, then switched between them in the XML depending on which units are selected.
 
-```
+```JavaScript
 function WeatherShow() {
   const [currentWeather, setCurrentWeather] = useState(null)
   const [location, setLocation] = useState(null)
